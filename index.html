@@ -22,21 +22,26 @@
             background: rgba(0, 10, 20, 0.9);
             border: 2px solid #00ffcc;
             border-radius: 20px;
-            padding: 10px 30px;
+            padding: 15px 25px;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
             max-width: 90%;
         }
         .logo {
-            width: 120px;
+            width: 110px;
             height: auto;
             margin-bottom: 5px;
-            border-radius: 10px;
+            border-radius: 8px;
         }
         h1 {
             color: #00ffcc;
             font-size: 1.8em;
             margin: 5px 0;
             text-shadow: 0 0 10px #00ffcc;
+        }
+        .sys-info {
+            color: #ccc;
+            font-size: 0.8em;
+            margin-bottom: 10px;
         }
         #status {
             color: #ffcc00;
@@ -55,24 +60,23 @@
             font-weight: bold;
         }
         .footer {
-            margin-top: 10px;
+            margin-top: 15px;
             border-top: 1px solid rgba(0, 255, 204, 0.2);
-            padding-top: 8px;
+            padding-top: 10px;
         }
+        /* عرض الأسماء بجانب بعضها لضمان الظهور */
         .contact-box {
             display: flex;
-            justify-content: space-around;
-            gap: 15px;
-            margin-top: 5px;
+            justify-content: center;
+            gap: 20px;
         }
         .dev-info {
-            text-align: center;
+            flex: 1;
         }
         .name {
             color: #00ffcc;
             font-size: 1.1em;
             font-weight: bold;
-            display: block;
         }
         .phone {
             color: #ffffff;
@@ -80,10 +84,10 @@
             direction: ltr;
             display: block;
         }
-        .center-text {
+        .service-text {
             color: #666;
-            font-size: 0.75em;
-            margin-top: 5px;
+            font-size: 0.7em;
+            margin-top: 8px;
         }
     </style>
 </head>
@@ -93,6 +97,7 @@
         <img src="logo.jpg" alt="ALMODAMER" class="logo">
         
         <h1>المدمر | ALMODAMER</h1>
+        <div class="sys-info">PS4 9.00 NO-USB JAILBREAK</div>
         
         <div id="status">جاهز للتفعيل | Ready</div>
         
@@ -106,4 +111,23 @@
                 </div>
                 <div class="dev-info">
                     <span class="name">حكيم | HAKIM</span>
-                    <span class="
+                    <span class="phone">0925483921</span>
+                </div>
+            </div>
+            <p class="service-text">مركز صيانة وتحميل الألعاب | Game Service</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { psfree } from './psfree.mjs';
+        window.startExploit = async function() {
+            const statusBox = document.getElementById('status');
+            statusBox.innerHTML = "جاري التفعيل...";
+            try { await psfree(); } catch (e) { statusBox.innerHTML = "فشل! أعد المحاولة"; }
+        };
+        window.applicationCache.addEventListener('cached', () => {
+            document.getElementById('status').innerHTML = "تم الحفظ أوفلاين";
+        }, false);
+    </script>
+</body>
+</html>
