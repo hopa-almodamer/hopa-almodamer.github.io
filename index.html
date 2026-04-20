@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المدمر | ALMODAMER HOST 9.00</title>
+    <title>ALMODAMER HOST | BY HOPA</title>
     <style>
         body {
             background: radial-gradient(circle at center, #001a33 0%, #000810 100%);
@@ -19,86 +19,91 @@
             overflow: hidden;
         }
         .container {
-            background: rgba(0, 10, 20, 0.85);
-            border: 3px solid #00ffcc;
-            border-radius: 25px;
-            padding: 40px 60px;
-            box-shadow: 0 0 50px rgba(0, 255, 204, 0.6);
-            max-width: 90%;
+            background: rgba(0, 10, 20, 0.9);
+            border: 2px solid #00ffcc;
+            border-radius: 20px;
+            padding: 15px 35px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+            max-width: 85%;
         }
         .logo {
-            width: 180px;
+            width: 130px;
             height: auto;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 5px;
+            border-radius: 10px;
         }
         h1 {
             color: #00ffcc;
-            font-size: 3em;
-            margin: 0;
-            text-shadow: 0 0 15px #00ffcc;
+            font-size: 2em;
+            margin: 5px 0;
+            text-shadow: 0 0 10px #00ffcc;
         }
         .sys-info {
             color: #ccc;
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
         #status {
             color: #ffcc00;
-            font-size: 1.6em;
-            margin: 30px 0;
+            font-size: 1.2em;
+            margin: 10px 0;
             font-weight: bold;
         }
         .btn {
             background: linear-gradient(45deg, #1d6e2c, #2ea043);
             color: white;
-            padding: 20px 50px;
+            padding: 12px 35px;
             border: none;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1.6em;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4);
-        }
-        .footer {
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-        }
-        .contact-row {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        .contact-item {
-            color: #00ffcc;
             font-size: 1.3em;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 255, 204, 0.2);
+        }
+        .footer {
+            margin-top: 15px;
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+            padding-top: 10px;
+        }
+        .dev-name {
+            color: #00ffcc;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00ffcc;
+            margin-bottom: 2px;
+        }
+        .phone {
+            color: #ffffff;
+            font-size: 1.1em;
             direction: ltr;
             display: block;
-        }
-        .contact-label {
-            color: #888;
-            font-size: 0.9em;
-            display: block;
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="logo.jpg" alt="ALMODAMER LOGO" class="logo">
+        <img src="logo.jpg" alt="ALMODAMER" class="logo">
         
         <h1>المدمر | ALMODAMER</h1>
-        <div class="sys-info">PS4 9.00 NO-USB JAILBREAK (PSFree)</div>
+        <div class="sys-info">PS4 9.00 NO-USB JAILBREAK</div>
         
         <div id="status">جاهز للتفعيل | Ready</div>
         
         <button class="btn" onclick="startExploit()">تشغيل GOLDHEN | START</button>
         
         <div class="footer">
-            <p style="color:#888; margin-bottom:15px;">مركز صيانة الأ
+            <div class="dev-name">هوبا | HOPA</div>
+            <span class="phone">0942578649</span>
+            <p style="color:#666; margin:5px 0 0 0; font-size: 0.8em;">مركز صيانة الألعاب | Game Service</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { psfree } from './psfree.mjs';
+        window.startExploit = async function() {
+            const statusBox = document.getElementById('status');
+            statusBox.innerHTML = "جاري التفعيل... <br> Launching...";
+            try { await psfree(); } catch (e) {
+                statusBox.innerHTML = "فشل! أعد المحاولة";
+                statusBox.style.color = "#ff4d
