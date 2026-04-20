@@ -1,61 +1,111 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" manifest="cache.appcache">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>almodamer | المدمر</title>
+    <title>المدمر | ALMODAMER HOST</title>
     <style>
+        /* تصميم احترافي يتناسب مع شاشات التلفزيون */
         body {
-            background-image: url('logo.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-color: #0d1117;
+            background-color: #000b1a;
             color: #ffffff;
-            font-family: Arial, sans-serif;
+            text-align: center;
+            font-family: sans-serif;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1;
+            padding: 0;
+            overflow: hidden;
         }
         .container {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            border: 2px solid #58a6ff;
-            padding: 30px;
-            border-radius: 15px;
-            background-color: rgba(22, 27, 34, 0.85);
-            max-width: 400px;
-            width: 85%;
+            border: 2px solid #00ffcc;
+            background: rgba(0, 20, 40, 0.9);
+            display: inline-block;
+            padding: 40px;
+            margin-top: 5%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #00ffcc;
         }
-        h1 { color: #58a6ff; }
+        h1 {
+            color: #00ffcc;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #000;
+        }
+        #status {
+            color: #ffcc00;
+            font-size: 1.5em;
+            margin: 30px 0;
+            font-weight: bold;
+        }
         .btn {
-            background-color: #238636;
+            background: #238636;
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: block;
-            margin-top: 20px;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.5em;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #2ea043;
+            transform: scale(1.05);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #888;
+        }
+        .info {
+            color: #00ffcc;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
+
     <div class="container">
-        <h1>المدمر | almodamer</h1>
-        <p>لصيانة وتحميل ألعاب PS3 و PS4</p>
-        <a href="#" class="btn">تفعيل تعديلة PS4</a>
-        <p style="margin-top:20px;">للتواصل: 0925483921</p>
+        <h1>المدمر | ALMODAMER</h1>
+        <p style="font-size: 1.2em;">PS4 9.00 NO-USB JAILBREAK (PSFree)</p>
+        
+        <div id="status">جاهز للتفعيل | Ready to Launch</div>
+        
+        <button class="btn" onclick="startExploit()">تشغيل GOLDHEN | START</button>
+        
+        <div class="footer">
+            <p>صيانة الألعاب | Game Service</p>
+            <p class="info">HOPA | 0925483921</p>
+        </div>
     </div>
+
+    <script type="module">
+        // استدعاء ملفات PSFree التي رفعتها في مستودعك
+        import { psfree } from './psfree.mjs';
+
+        window.startExploit = async function() {
+            const statusBox = document.getElementById('status');
+            
+            statusBox.innerHTML = "جاري التفعيل... انتظر قليلاً <br> Launching... Please Wait";
+            statusBox.style.color = "#00ffcc";
+
+            try {
+                // تشغيل الثغرة برمجياً بدون فلاشة
+                await psfree();
+            } catch (error) {
+                statusBox.innerHTML = "فشل التفعيل! أعد المحاولة <br> Error: " + error;
+                statusBox.style.color = "#ff4d4d";
+            }
+        };
+
+        // تفعيل رسائل الكاش (الأوفلاين)
+        window.applicationCache.addEventListener('updateready', () => {
+            window.applicationCache.swapCache();
+            location.reload();
+        }, false);
+
+        window.applicationCache.addEventListener('cached', () => {
+            document.getElementById('status').innerHTML = "تم الحفظ بنجاح! افصل الإنترنت <br> Offline Cache Installed!";
+        }, false);
+    </script>
 </body>
 </html>
