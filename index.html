@@ -18,42 +18,89 @@
             background: rgba(0, 10, 20, 0.9);
             border: 3px solid #00ffcc;
             border-radius: 25px;
-            padding: 10px 20px;
+            padding: 20px;
             box-shadow: 0 0 50px rgba(0, 255, 204, 0.6);
             width: 350px;
         }
+        /* تصميم العداد */
+        #cache-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: none;
+            flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+        #progress-container { width: 80%; background: #222; border-radius: 10px; height: 20px; margin-top: 15px; border: 1px solid #00ffcc; }
+        #progress-bar { width: 0%; height: 100%; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 15px #00ffcc; transition: width 0.3s; }
+        
         .logo { width: 100px; height: auto; border-radius: 12px; margin-bottom: 5px; }
         h1 { color: #00ffcc; font-size: 1.8em; margin: 5px 0; text-shadow: 0 0 20px #00ffcc; }
-        .hack-text { color: #ffffff; font-size: 1.1em; font-weight: bold; text-shadow: 0 0 15px #00ffcc; margin-bottom: 8px; display: block; }
-        #status { color: #ffcc00; font-size: 1em; margin: 10px 0; font-weight: bold; text-shadow: 0 0 10px #ffcc00; }
-        .btn { background: linear-gradient(45deg, #1d6e2c, #2ea043); color: white; padding: 12px 40px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.3em; font-weight: bold; box-shadow: 0 0 20px rgba(46, 160, 67, 0.6); margin-bottom: 12px; }
+        .btn { background: linear-gradient(45deg, #1d6e2c, #2ea043); color: white; padding: 12px 40px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.3em; font-weight: bold; margin-bottom: 12px; }
         .footer { border-top: 1px solid rgba(0, 255, 204, 0.3); padding-top: 8px; }
-        .neon-name { color: #00ffcc; font-size: 1.2em; font-weight: bold; text-shadow: 0 0 10px #00ffcc; display: block; }
+        .neon-name { color: #00ffcc; font-size: 1.2em; font-weight: bold; display: block; text-shadow: 0 0 10px #00ffcc; }
         .neon-num { color: #ffffff; font-size: 1em; direction: ltr; display: block; margin-bottom: 5px; }
-        .address-box { color: #00ffcc; font-size: 0.95em; font-weight: bold; margin-top: 8px; text-shadow: 0 0 10px #00ffcc; border: 1px dashed rgba(0, 255, 204, 0.3); padding: 5px; border-radius: 10px; }
-        .service { color: #888; font-size: 0.7em; margin-top: 5px; }
+        .address-box { color: #00ffcc; font-size: 0.9em; font-weight: bold; margin-top: 8px; text-shadow: 0 0 5px #00ffcc; }
     </style>
 </head>
 <body>
+
+    <div id="cache-overlay">
+        <h2 id="cache-status" style="color: #00ffcc;">جاري حفظ ملفات الكاش...</h2>
+        <div id="progress-container"><div id="progress-bar"></div></div>
+        <p id="cache-percent" style="margin-top: 10px;">0%</p>
+    </div>
+
     <div class="container">
         <img src="logo.jpg" alt="ALMODAMER" class="logo">
         <h1>المدمر | ALMODAMER</h1>
-        <span class="hack-text">PS4 9.00 HACK BY HOPA</span>
-        <div id="status">جاهز للتفعيل | Ready</div>
+        <div id="status" style="color: #ffcc00; margin-bottom: 10px;">جاهز للتفعيل</div>
+        
         <button class="btn" onclick="startExploit()">GOLDHEN | START</button>
+        
         <div class="footer">
             <span class="neon-name">حكيم | HAKIM</span>
             <span class="neon-num">0916483921</span>
-
             <span class="neon-name">هوبا | HOPA</span>
             <span class="neon-num">0942578649</span>
-            
-            <div class="address-box">
-                المرج - سوق فلسطين - ساحة الأمان
-            </div>
-            <p class="service">مركز صيانة وتحميل الألعاب</p>
+            <div class="address-box">المرج - سوق فلسطين - ساحة الأمان</div>
         </div>
     </div>
+
+    <script>
+        // سكربت مراقبة الكاش
+        var appCache = window.applicationCache;
+        var overlay = document.getElementById('cache-overlay');
+        var progressBar = document.getElementById('progress-bar');
+        var percentText = document.getElementById('cache-percent');
+        var statusText = document.getElementById('cache-status');
+
+        appCache.addEventListener('downloading', function() {
+            overlay.style.display = 'flex';
+        }, false);
+
+        appCache.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                var percent = Math.round((e.loaded / e.total) * 100);
+                progressBar.style.width = percent + '%';
+                percentText.innerHTML = percent + '%';
+            }
+        }, false);
+
+        appCache.addEventListener('cached', function() {
+            statusText.innerHTML = "تم الحفظ بنجاح! افصل الإنترنت الآن";
+            setTimeout(function() { overlay.style.display = 'none'; }, 3000);
+        }, false);
+
+        appCache.addEventListener('updateready', function() {
+            appCache.swapCache();
+            window.location.reload();
+        }, false);
+
+        appCache.addEventListener('error', function() {
+            // إذا حدث خطأ، نخفي الشاشة لكي لا يعلق المستخدم
+            overlay.style.display = 'none';
+        }, false);
+    </script>
+
     <script type="module">
         import { psfree } from './psfree.mjs';
         window.startExploit = async function() {
