@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" manifest="cache.appcache">
+<html lang="ar" dir="rtl" manifest="almodamer.appcache">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +7,31 @@
     <style>
         body {
             background: radial-gradient(circle at center, #001a33 0%, #000810 100%);
-            color: #ffffff;
-            text-align: center;
-            font-family: sans-serif;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
+            color: #ffffff; text-align: center; font-family: sans-serif;
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden;
         }
         .container {
-            background: rgba(0, 10, 20, 0.9);
-            border: 3px solid #00ffcc;
-            border-radius: 25px;
-            padding: 20px;
+            background: rgba(0, 10, 20, 0.9); border: 3px solid #00ffcc;
+            border-radius: 25px; padding: 20px; width: 350px;
             box-shadow: 0 0 50px rgba(0, 255, 204, 0.6);
-            width: 350px;
         }
         /* تصميم العداد */
         #cache-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none;
-            flex-direction: column; justify-content: center; align-items: center;
-            z-index: 1000;
+            background: rgba(0,0,0,0.9); display: none;
+            flex-direction: column; justify-content: center; align-items: center; z-index: 1000;
         }
         #progress-container { width: 80%; background: #222; border-radius: 10px; height: 20px; margin-top: 15px; border: 1px solid #00ffcc; }
         #progress-bar { width: 0%; height: 100%; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 15px #00ffcc; transition: width 0.3s; }
         
         .logo { width: 100px; height: auto; border-radius: 12px; margin-bottom: 5px; }
         h1 { color: #00ffcc; font-size: 1.8em; margin: 5px 0; text-shadow: 0 0 20px #00ffcc; }
-        .btn { background: linear-gradient(45deg, #1d6e2c, #2ea043); color: white; padding: 12px 40px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.3em; font-weight: bold; margin-bottom: 12px; }
+        .btn { 
+            background: linear-gradient(45deg, #1d6e2c, #2ea043); color: white; 
+            padding: 12px 40px; border: none; border-radius: 12px; 
+            cursor: pointer; font-size: 1.3em; font-weight: bold; margin-bottom: 12px; 
+        }
         .footer { border-top: 1px solid rgba(0, 255, 204, 0.3); padding-top: 8px; }
         .neon-name { color: #00ffcc; font-size: 1.2em; font-weight: bold; display: block; text-shadow: 0 0 10px #00ffcc; }
         .neon-num { color: #ffffff; font-size: 1em; direction: ltr; display: block; margin-bottom: 5px; }
@@ -59,24 +56,21 @@
         <div class="footer">
             <span class="neon-name">حكيم | HAKIM</span>
             <span class="neon-num">0916483921</span>
+            
             <span class="neon-name">هوبا | HOPA</span>
             <span class="neon-num">0942578649</span>
+            
             <div class="address-box">المرج - سوق فلسطين - ساحة الأمان</div>
         </div>
     </div>
 
     <script>
-        // سكربت مراقبة الكاش
         var appCache = window.applicationCache;
         var overlay = document.getElementById('cache-overlay');
         var progressBar = document.getElementById('progress-bar');
         var percentText = document.getElementById('cache-percent');
-        var statusText = document.getElementById('cache-status');
 
-        appCache.addEventListener('downloading', function() {
-            overlay.style.display = 'flex';
-        }, false);
-
+        appCache.addEventListener('downloading', function() { overlay.style.display = 'flex'; }, false);
         appCache.addEventListener('progress', function(e) {
             if (e.lengthComputable) {
                 var percent = Math.round((e.loaded / e.total) * 100);
@@ -84,21 +78,12 @@
                 percentText.innerHTML = percent + '%';
             }
         }, false);
-
         appCache.addEventListener('cached', function() {
-            statusText.innerHTML = "تم الحفظ بنجاح! افصل الإنترنت الآن";
-            setTimeout(function() { overlay.style.display = 'none'; }, 3000);
+            document.getElementById('cache-status').innerHTML = "تم الحفظ! يمكنك العمل أوفلاين";
+            setTimeout(function() { overlay.style.display = 'none'; }, 2500);
         }, false);
-
-        appCache.addEventListener('updateready', function() {
-            appCache.swapCache();
-            window.location.reload();
-        }, false);
-
-        appCache.addEventListener('error', function() {
-            // إذا حدث خطأ، نخفي الشاشة لكي لا يعلق المستخدم
-            overlay.style.display = 'none';
-        }, false);
+        appCache.addEventListener('updateready', function() { appCache.swapCache(); window.location.reload(); }, false);
+        appCache.addEventListener('error', function() { overlay.style.display = 'none'; }, false);
     </script>
 
     <script type="module">
