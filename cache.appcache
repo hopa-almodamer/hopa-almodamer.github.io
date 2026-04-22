@@ -1,5 +1,5 @@
-CACHE MANIFEST 
-# v3.4 - FINAL OFFLINE UPDATE
+CACHE MANIFEST
+# v7.0 - ALMODAMER FINAL VERSION
 
 CACHE:
 index.html
@@ -13,3 +13,6 @@ webkit.mjs
 
 NETWORK:
 *
+
+SETTINGS:
+prefer-online
